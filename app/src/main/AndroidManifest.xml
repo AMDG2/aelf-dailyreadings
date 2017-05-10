@@ -30,6 +30,8 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- Shortcuts on long press on icon -->
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
             <!-- Automatically load on desktop website -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

@@ -3,6 +3,7 @@ package co.epitre.aelf_lectures;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.TargetApi;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -226,9 +227,15 @@ public class LecturesActivity extends AppCompatActivity implements DatePickerFra
         whatwhen = new WhatWhen();
         String openSource;
 
-        Uri uri = this.getIntent().getData();
+        Intent intent = this.getIntent();
+        Uri uri = intent.getData();
         if (uri != null) {
-            openSource = "intent";
+            String intentSource = intent.getStringExtra("source");
+            if (intentSource != null && intentSource.equals("shortcut")) {
+                openSource = "shortcut";
+            } else {
+                openSource = "intent";
+            }
             parseIntentUri(whatwhen, uri);
         } else if (savedInstanceState != null) {
             // Restore saved instance state. Especially useful on screen rotate on older phones
@@ -353,16 +360,10 @@ public class LecturesActivity extends AppCompatActivity implements DatePickerFra
             } else {
                 // Attempt to parse NEW url format, starting with a date
                 if (chunks.length >= 2) {
-                    // Does it look like a date ?
                     String potential_date = chunks[1];
-                    if (potential_date.matches("20[0-9]{2}-[0-9]{2}-[0-9]{2}")) {
-                        String[] date_chunks = potential_date.split("-");
-                        whatwhen.when.set(
-                                Integer.parseInt(date_chunks[0]),
-                                Integer.parseInt(date_chunks[1]) - 1,
-                                Integer.parseInt(date_chunks[2])
-                        );
-                    } else {
+                    try {
+                        whatwhen.when.setFromUrlDate(potential_date);
+                    } catch (IllegalArgumentException e) {
                         Log.w(TAG, "String '" + potential_date + "' should look like a date, but it does not!");
                     }
                 }

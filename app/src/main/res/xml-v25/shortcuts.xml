@@ -1,0 +1,28 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="today-mass"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_mass_today_label_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="co.epitre.aelf_lectures"
+            android:targetClass="co.epitre.aelf_lectures.LecturesActivity"
+            android:data="http://www.aelf.org/today/romain/messe">
+            <extra android:name="source" android:value="shortcut" />
+        </intent>
+    </shortcut>
+    <shortcut
+        android:shortcutId="sunday-mass"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher"
+        android:shortcutShortLabel="@string/shortcut_mass_sunday_label_short">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="co.epitre.aelf_lectures"
+            android:targetClass="co.epitre.aelf_lectures.LecturesActivity"
+            android:data="http://www.aelf.org/sunday/romain/messe">
+            <extra android:name="source" android:value="shortcut" />
+        </intent>
+    </shortcut>
+</shortcuts>

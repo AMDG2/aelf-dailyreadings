@@ -1,5 +1,7 @@
 package co.epitre.aelf_lectures.data;
 
+import android.util.Log;
+
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
@@ -22,6 +24,40 @@ public class AelfDate extends GregorianCalendar {
     // Date constructor
     public AelfDate(int year, int month, int day) {
         super(year, month, day);
+    }
+
+    //
+    // Setter
+    //
+
+    public void setFromUrlDate(String date) throws IllegalArgumentException {
+        if (date.matches("20[0-9]{2}-[0-9]{2}-[0-9]{2}")) {
+            String[] date_chunks = date.split("-");
+            set(
+                    Integer.parseInt(date_chunks[0]),
+                    Integer.parseInt(date_chunks[1]) - 1,
+                    Integer.parseInt(date_chunks[2])
+            );
+        } else if (date.equals("today")) {
+            GregorianCalendar today = new GregorianCalendar();
+            set(
+                    today.get(GregorianCalendar.YEAR),
+                    today.get(GregorianCalendar.MONTH),
+                    today.get(GregorianCalendar.DAY_OF_MONTH)
+            );
+        } else if (date.equals("sunday")) {
+            GregorianCalendar sunday = new GregorianCalendar();
+            int day = sunday.get(GregorianCalendar.DAY_OF_WEEK);
+            int forward = (8 - day) % 7;
+            sunday.add(GregorianCalendar.DAY_OF_YEAR, forward);
+            set(
+                    sunday.get(GregorianCalendar.YEAR),
+                    sunday.get(GregorianCalendar.MONTH),
+                    sunday.get(GregorianCalendar.DAY_OF_MONTH)
+            );
+        } else {
+            throw new IllegalArgumentException("'"+date+"' is not a valid date");
+        }
     }
 
     //

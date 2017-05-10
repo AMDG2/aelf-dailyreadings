@@ -29,4 +29,8 @@
     <string name="button_cancel">Annuler</string>
     <string name="button_today">Auj.</string>
 
+    <!-- Shortcuts -->
+    <string name="shortcut_mass_today_label_short">Messe du jour</string>
+    <string name="shortcut_mass_sunday_label_short">Messe de Dimanche</string>
+
 </resources>
