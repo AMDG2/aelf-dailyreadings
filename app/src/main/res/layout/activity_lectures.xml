@@ -1,50 +1,60 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent" >
 
-    <android.support.v7.widget.Toolbar
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.design.widget.CoordinatorLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/toolbar"
-        android:layout_height="wrap_content"
+        android:id="@+id/overview_coordinator_layout"
         android:layout_width="match_parent"
-        android:minHeight="?attr/actionBarSize"
-        android:background="@color/aelf_dark"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:titleTextAppearance="@style/AelfToolBarTitleText"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_height="match_parent">
 
-    <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawer_layout"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent" >
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.v7.widget.Toolbar
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                android:background="@color/aelf_dark"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:titleTextAppearance="@style/AelfToolBarTitleText"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_scrollFlags="enterAlways|scroll" />
+        </android.support.design.widget.AppBarLayout>
 
         <!-- Main content -->
-        <FrameLayout
-            android:id="@+id/section_container"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <!-- Drawer aka "menu" -->
-        <!-- Documentation: https://developer.android.com/training/material/design-library.html -->
-        <!--
-            HACK: overload NavigationView + set insetForeground to NULL to hide the system UI
-            padding when using transluent status bar
-        -->
-        <co.epitre.aelf_lectures.AelfNavigationView
-            android:id="@+id/drawer_navigation_view"
-            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
-            app:insetForeground="@null"
-            app:itemBackground="@drawable/menu_item_bg"
-            app:menu="@menu/drawer" />
-        <!-- app:headerLayout="@layout/my_drawer_header" -->
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <FrameLayout
+                android:id="@+id/section_container"
+                android:layout_width="match_parent"
+                android:layout_height="800dp" />
+        </android.support.v4.widget.NestedScrollView>
 
-    </android.support.v4.widget.DrawerLayout>
-</LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+    <!-- Drawer aka "menu" -->
+    <!-- Documentation: https://developer.android.com/training/material/design-library.html -->
+    <!--
+        HACK: overload NavigationView + set insetForeground to NULL to hide the system UI
+        padding when using transluent status bar
+    -->
+    <co.epitre.aelf_lectures.AelfNavigationView
+        android:id="@+id/drawer_navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:insetForeground="@null"
+        app:itemBackground="@drawable/menu_item_bg"
+        app:menu="@menu/drawer" />
+</android.support.v4.widget.DrawerLayout>
