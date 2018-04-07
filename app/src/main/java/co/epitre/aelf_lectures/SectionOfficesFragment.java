@@ -13,6 +13,7 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -501,6 +502,25 @@ public class SectionOfficesFragment extends SectionFragmentBase implements
     public void onLink(Uri link) {
         parseIntentUri(link);
         loadLecture(whatwhen);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        super.onKeyDown(keyCode, event);
+
+        if (mViewPager == null) {
+            return false;
+        }
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1);
+                return true;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                mViewPager.setCurrentItem(mViewPager.getCurrentItem()-1);
+                return true;
+        }
+        return false;
     }
 
     //

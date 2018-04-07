@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.ActionBar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +51,10 @@ public abstract class SectionFragmentBase extends Fragment {
 
     public void onLink(Uri link) {
         // NOOP
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return false;
     }
 
     //

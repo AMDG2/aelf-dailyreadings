@@ -32,6 +32,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -611,6 +612,11 @@ public class LecturesActivity extends AppCompatActivity implements
 
         // All good
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return sectionFragment.onKeyDown(keyCode, event);
     }
 
     // Detect important / global option change
