@@ -295,6 +295,9 @@ public class LecturesActivity extends AppCompatActivity implements
             }
         }
 
+        // Enable or Disable Bible v2
+        refreshBibleV2MenuItem();
+
         // Init display state
         if (Build.VERSION.SDK_INT >= 24) {
             isMultiWindow = isInMultiWindowMode();
@@ -551,6 +554,11 @@ public class LecturesActivity extends AppCompatActivity implements
                 setSection(new SectionBibleFragment());
             }
             return true;
+        } else if (item.getItemId() == R.id.nav_biblev2) {
+            if (!(sectionFragment instanceof SectionBibleV2Fragment)) {
+                setSection(new SectionBibleV2Fragment());
+            }
+            return true;
         } else {
             // This is something else :)
             return false; // Do not select item as we do not know what this is...
@@ -656,7 +664,16 @@ public class LecturesActivity extends AppCompatActivity implements
             editor.apply();
         } else if (key.equals(SyncPrefActivity.KEY_PREF_DISP_NIGHT_MODE)) {
             refreshTheme();
+        } else if (key.equals(SyncPrefActivity.KEY_PREF_PARTICIPATE_BIBLE_V2)) {
+            refreshBibleV2MenuItem();
         }
+
+    }
+
+    private void refreshBibleV2MenuItem() {
+        boolean enabled = settings.getBoolean(SyncPrefActivity.KEY_PREF_PARTICIPATE_BIBLE_V2, false);
+        MenuItem menu_item_bible_v2 = drawerView.getMenu().findItem(R.id.nav_biblev2);
+        menu_item_bible_v2.setVisible(enabled);
     }
 
     private void refreshTheme() {

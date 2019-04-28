@@ -10,10 +10,15 @@
         android:title="@string/nav_informations"
         android:checkable="true" />
 
-    <!-- TODO: This is for the demo, we should *think* it like @AMDG2 likes to say ;) -->
     <item
         android:id="@+id/nav_bible"
         android:title="@string/nav_bible"
+        android:checkable="true" />
+
+    <item
+        android:id="@+id/nav_biblev2"
+        android:title="@string/nav_biblev2"
+        android:visible="false"
         android:checkable="true" />
 
     <item android:title="@string/nav_title_offices">
