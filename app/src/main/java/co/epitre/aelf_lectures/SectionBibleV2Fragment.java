@@ -10,14 +10,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import co.epitre.aelf_lectures.bible.BibleBookEntry;
+import co.epitre.aelf_lectures.bible.BibleBookEntryLayout;
+import co.epitre.aelf_lectures.bible.BibleBookFragment;
 import co.epitre.aelf_lectures.bible.BibleBookListAdapter;
 import co.epitre.aelf_lectures.bible.BibleMenuFragment;
 
@@ -103,6 +107,19 @@ public class SectionBibleV2Fragment extends SectionFragmentBase {
         return Uri.parse("https://www.aelf.org/bible");
     }
 
+    public void openBook(@NonNull BibleBookEntry bookEntry, BibleBookEntryLayout bibleBookEntryLayout) {
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        BibleBookFragment bibleBookFragment = new BibleBookFragment();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.bible_container, bibleBookFragment);
+        fragmentTransaction.addToBackStack(bookEntry.getName());
+        fragmentTransaction.commit();
+    }
+
     //
     // Lifecycle
     //
@@ -131,7 +148,6 @@ public class SectionBibleV2Fragment extends SectionFragmentBase {
 
     @Subscribe
     public void onBibleEntryClick(BibleBookListAdapter.OnBibleEntryClickEvent event) {
-        String item = "Click detected on " + event.mBookEntry.getName();
-        Toast.makeText(getContext(), item, Toast.LENGTH_LONG).show();
+        openBook(event.mBookEntry, event.mBibleBookEntryLayout);
     }
 }
